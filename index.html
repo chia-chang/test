@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f8f3ea" />
+  <meta name="theme-color" content="#c96834" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="炙序" />
   <meta name="description" content="炙序 GYOZA — 以溫度與手藝，煎出每一口剛剛好的幸福。探索職人鍋貼、精選水餃與冷凍禮盒。" />
   <title>炙序 GYOZA｜每一口，都有剛好的溫度</title>
   <!-- 所有頁面程式碼皆在此 HTML；Tailwind、Lucide 與字型依需求使用 CDN。 -->
@@ -536,6 +542,10 @@
         window.__crowd3d = { THREE: THREE, walkers: walkers };
       }
     })();
+  </script>
+  <script>
+    // PWA：註冊 Service Worker
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
   </script>
 </body>
 </html>
