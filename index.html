@@ -6,15 +6,18 @@
   <meta name="theme-color" content="#f8f3ea" />
   <meta name="description" content="炙序 GYOZA — 以溫度與手藝，煎出每一口剛剛好的幸福。探索職人鍋貼、精選水餃與冷凍禮盒。" />
   <title>炙序 GYOZA｜每一口，都有剛好的溫度</title>
-  <!-- 所有頁面程式碼皆在此 HTML；Tailwind、Lucide 與字型依需求使用 CDN。 -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: { colors: { cream:'#f8f3ea', ink:'#34251e', brown:'#55392b', orange:'#cf713b', sand:'#e9d9c3' }, fontFamily: { sans:['Noto Sans TC','sans-serif'], display:['Noto Serif TC','serif'] } } } };
-  </script>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/gyoza-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/gyoza-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="炙序" />
+  <script src="./pwa.js" defer></script>
+  <link rel="stylesheet" href="./assets/site.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <script src="./assets/lucide.min.js" defer></script>
   <style>
     :root { --cream:#f8f3ea;--ink:#34251e;--brown:#55392b;--orange:#cf713b;--line:#e5d8c8; }
     * { box-sizing:border-box; }
@@ -86,6 +89,7 @@
     .booking-fab:hover { background:#ac512a; }
     .booking-fab svg { width:20px;height:20px;flex:none; }
     body.locked .booking-fab { visibility:hidden; }
+    [hidden] { display:none!important; }
     #contact { padding-bottom:calc(100px + env(safe-area-inset-bottom,0px)); }
     @media(max-width:640px) { .booking-fab { right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));min-height:48px;padding:12px 18px; } }
   </style>
@@ -155,7 +159,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-[#38271f] text-[#eee0d1] pt-16 pb-7" id="contact"><div class="wrap"><div class="grid md:grid-cols-[1.2fr_.8fr_1fr] gap-12 pb-14"><div><a href="#top" class="inline-flex items-center gap-3"><span class="w-11 h-11 bg-[#f2e4d4] text-[#55392b] rounded-full grid place-items-center"><i data-lucide="flame" class="w-5 h-5"></i></span><span class="serif text-3xl tracking-[.15em]">炙序</span></a><p class="mt-6 text-sm leading-8 text-[#c9b6a7] max-w-[310px]">我們把日常的小確幸，煎成一顆顆暖呼呼的鍋貼。每一口，都是剛剛好的溫度。</p><div class="flex gap-3 mt-6"><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram 平台首頁" class="w-10 h-10 grid place-items-center rounded-full border border-white/25 hover:bg-white/10"><i data-lucide="instagram" class="w-4 h-4"></i></a><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook 平台首頁" class="w-10 h-10 grid place-items-center rounded-full border border-white/25 hover:bg-white/10"><i data-lucide="facebook" class="w-4 h-4"></i></a><a href="https://line.me/" target="_blank" rel="noopener noreferrer" aria-label="LINE 平台首頁" class="w-10 h-10 grid place-items-center rounded-full border border-white/25 hover:bg-white/10"><i data-lucide="message-circle" class="w-4 h-4"></i></a></div><p class="text-[10px] text-[#ad9685] mt-3">社群連結目前導向各平台首頁（示範）。</p></div><div><h3 class="font-bold text-sm mb-6">快速導覽</h3><nav class="grid grid-cols-2 gap-x-8 gap-y-4 text-xs text-[#c9b6a7]"><a href="#story" class="hover:text-white">品牌故事</a><a href="#menu" class="hover:text-white">熱門餐點</a><a href="#menu" class="hover:text-white">線上點餐</a><a href="#gifts" class="hover:text-white">冷凍禮盒</a><a href="#stores" class="hover:text-white">門市資訊</a><a href="#faq" class="hover:text-white">常見問題</a></nav></div><div><h3 class="font-bold text-sm mb-5">訂閱炙序日常</h3><p class="text-xs text-[#c9b6a7] leading-7 mb-5">第一時間收到新品靈感與品牌小故事。此為展示訂閱，資料不會送出至伺服器。</p><form id="newsletter-form" class="flex rounded-xl bg-[#fffaf3] overflow-hidden"><label class="sr-only" for="newsletter-email">電子郵件</label><input id="newsletter-email" type="email" required placeholder="輸入你的 Email" class="flex-1 min-w-0 px-4 py-3 text-[#463327] text-sm outline-none" /><button type="submit" aria-label="訂閱電子報" class="px-5 text-[#b75e30] hover:bg-[#f7eee4]"><i data-lucide="arrow-right" class="w-5 h-5"></i></button></form></div></div><div class="border-t border-white/15 pt-6 flex flex-col sm:flex-row justify-between gap-4 text-[11px] text-[#ac9889]"><span>© <span id="year"></span> 炙序 GYOZA. All rights reserved. ｜品牌展示網站（DEMO）</span><button id="privacy-btn" type="button" class="text-left hover:text-white">隱私權政策與示範說明</button></div></div></footer>
+  <footer class="bg-[#38271f] text-[#eee0d1] pt-16 pb-7" id="contact"><div class="wrap"><div class="grid md:grid-cols-[1.2fr_.8fr_1fr] gap-12 pb-14"><div><a href="#top" class="inline-flex items-center gap-3"><span class="w-11 h-11 bg-[#f2e4d4] text-[#55392b] rounded-full grid place-items-center"><i data-lucide="flame" class="w-5 h-5"></i></span><span class="serif text-3xl tracking-[.15em]">炙序</span></a><p class="mt-6 text-sm leading-8 text-[#c9b6a7] max-w-[310px]">我們把日常的小確幸，煎成一顆顆暖呼呼的鍋貼。每一口，都是剛剛好的溫度。</p><div class="flex gap-3 mt-6"><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram 平台首頁" class="w-10 h-10 grid place-items-center rounded-full border border-white/25 hover:bg-white/10"><i data-lucide="instagram" class="w-4 h-4"></i></a><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook 平台首頁" class="w-10 h-10 grid place-items-center rounded-full border border-white/25 hover:bg-white/10"><i data-lucide="facebook" class="w-4 h-4"></i></a><a href="https://line.me/" target="_blank" rel="noopener noreferrer" aria-label="LINE 平台首頁" class="w-10 h-10 grid place-items-center rounded-full border border-white/25 hover:bg-white/10"><i data-lucide="message-circle" class="w-4 h-4"></i></a></div><p class="text-[10px] text-[#ad9685] mt-3">社群連結目前導向各平台首頁（示範）。</p></div><div><h3 class="font-bold text-sm mb-6">快速導覽</h3><nav class="grid grid-cols-2 gap-x-8 gap-y-4 text-xs text-[#c9b6a7]"><a href="#story" class="hover:text-white">品牌故事</a><a href="#menu" class="hover:text-white">熱門餐點</a><a href="#menu" class="hover:text-white">線上點餐</a><a href="#gifts" class="hover:text-white">冷凍禮盒</a><a href="#stores" class="hover:text-white">門市資訊</a><a href="#faq" class="hover:text-white">常見問題</a></nav></div><div><h3 class="font-bold text-sm mb-5">訂閱炙序日常</h3><p class="text-xs text-[#c9b6a7] leading-7 mb-5">第一時間收到新品靈感與品牌小故事。此為展示訂閱，資料不會送出至伺服器。</p><form id="newsletter-form" class="flex rounded-xl bg-[#fffaf3] overflow-hidden"><label class="sr-only" for="newsletter-email">電子郵件</label><input id="newsletter-email" type="email" required placeholder="輸入你的 Email" class="flex-1 min-w-0 px-4 py-3 text-[#463327] text-sm outline-none" /><button type="submit" aria-label="訂閱電子報" class="px-5 text-[#b75e30] hover:bg-[#f7eee4]"><i data-lucide="arrow-right" class="w-5 h-5"></i></button></form></div></div><div class="border-t border-white/15 pt-6 flex flex-col sm:flex-row justify-between gap-4 text-[11px] text-[#ac9889]"><span>© <span id="year"></span> 炙序 GYOZA. All rights reserved. ｜品牌展示網站（DEMO）</span><button id="install-app" type="button" class="text-left hover:text-white" hidden>安裝炙序 App</button><p id="install-help" class="text-[11px]" hidden>iPhone／iPad：使用 Safari 分享選單，選擇「加入主畫面」。</p><button id="privacy-btn" type="button" class="text-left hover:text-white">隱私權政策與示範說明</button></div></div></footer>
 
   <!-- Cart drawer and backdrop -->
   <div class="overlay" id="overlay"></div>
