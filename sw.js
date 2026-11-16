@@ -1,37 +1,38 @@
-// 炙序 GYOZA — Service Worker：離線可開啟首頁，外部資源採用快取備援
-const VERSION = 'gyoza-v1';
-const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'];
+const PREFIX = `gyoza-${new URL(self.registration.scope).pathname}-`;
+const CACHE = `${PREFIX}v1`;
+const ROOT = self.registration.scope;
+const SHELL = new URL('./index.html', ROOT).href;
+const ASSETS = [
+  './', './index.html', './manifest.webmanifest', './pwa.js',
+  './assets/site.css', './assets/lucide.min.js',
+  './assets/icons/gyoza-180.png', './assets/icons/gyoza-192.png',
+  './assets/icons/gyoza-512.png', './assets/icons/gyoza-maskable-512.png'
+].map(path => new URL(path, ROOT).href);
 
-self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
 });
-
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k))))
-      .then(() => self.clients.claim())
-  );
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    for (const key of await caches.keys()) {
+      if (key.startsWith(PREFIX) && key !== CACHE) await caches.delete(key);
+    }
+    await self.clients.claim();
+  })());
 });
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+  const url = new URL(request.url);
+  if (!request.url.startsWith(ROOT) || url.origin !== self.location.origin) return;
 
-self.addEventListener('fetch', (e) => {
-  const req = e.request;
-  if (req.method !== 'GET' || !req.url.startsWith('http')) return;
-  // 頁面：網路優先，離線時用快取
-  if (req.mode === 'navigate') {
-    e.respondWith(
-      fetch(req).then((res) => { const copy = res.clone(); caches.open(VERSION).then((c) => c.put('index.html', copy)); return res; })
-        .catch(() => caches.match('index.html'))
-    );
+  // Show the latest page online; fall back to the saved home page offline.
+  if (request.mode === 'navigate') {
+    event.respondWith(fetch(request).catch(() => caches.match(SHELL)));
     return;
   }
-  // 其他資源（圖示、CDN 程式庫、圖片）：先回快取，同時背景更新
-  e.respondWith(
-    caches.match(req).then((hit) => {
-      const net = fetch(req).then((res) => {
-        if (res && (res.status === 200 || res.type === 'opaque')) { const copy = res.clone(); caches.open(VERSION).then((c) => c.put(req, copy)); }
-        return res;
-      }).catch(() => hit);
-      return hit || net;
-    })
-  );
+  if (ASSETS.includes(request.url)) {
+    event.respondWith(caches.open(CACHE).then(async cache =>
+      (await cache.match(request)) || fetch(request)));
+  }
 });
