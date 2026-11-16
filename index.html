@@ -52,7 +52,7 @@
     .walker .limb.leg { transform-origin:29px 96px;animation-name:swing-leg; }
     .walker .limb.arm.a, .walker .limb.leg.b { animation-direction:alternate-reverse; }
     @keyframes swing-leg { from { transform:rotate(-20deg); } to { transform:rotate(20deg); } }
-    @keyframes swing-arm { from { transform:rotate(-14deg); } to { transform:rotate(14deg); } }
+    @keyframes swing-arm { from { transform:rotate(-24deg); } to { transform:rotate(24deg); } }
     .horizontal-line { width:50px;height:1px;background:#ce8858; }
     .card-shadow { box-shadow:0 15px 50px rgba(69,45,30,.06); }
     .product-card { background:#fffdf9;border-radius:17px;overflow:hidden;border:1px solid #ede3d5;transition:transform .25s,box-shadow .25s; }
@@ -286,11 +286,11 @@
       var tones = ['#ffe2c6', '#ffc99a', '#f4a870', '#fff1e3', '#e98d55', '#ffd9b3'];
       function person(w, h, c) {
         return '<svg viewBox="0 0 60 150" width="' + w + '" height="' + h + '" fill="' + c + '">' +
-          '<rect class="limb arm b" x="25" y="40" width="9" height="46" rx="4.5" opacity=".65"/>' +
+          '<rect class="limb arm b" x="25.5" y="36" width="9" height="54" rx="4.5" opacity=".7" stroke="#2a1a12" stroke-opacity=".55" stroke-width="1.2"/>' +
           '<rect class="limb leg b" x="22" y="94" width="14" height="54" rx="6" opacity=".65"/>' +
           '<circle cx="30" cy="14" r="12"/>' +
           '<rect x="16" y="29" width="28" height="70" rx="12"/>' +
-          '<rect class="limb arm a" x="25" y="40" width="9" height="46" rx="4.5"/>' +
+          '<rect class="limb arm a" x="25.5" y="36" width="9" height="54" rx="4.5" stroke="#2a1a12" stroke-opacity=".55" stroke-width="1.2"/>' +
           '<rect class="limb leg a" x="22" y="94" width="14" height="54" rx="6"/>' +
           '</svg>';
       }
@@ -301,11 +301,11 @@
       function spawn(it, first) {
         var W = box.clientWidth;
         it.dir = Math.random() < 0.5 ? 1 : -1;
-        it.speed = rand(35, 150);                       // 每個人速度不同 (px/秒)
+        it.speed = rand(50, 130);                       // 每個人速度不同 (px/秒)
         var tone = tones[Math.floor(Math.random() * tones.length)];
         it.el.firstChild && it.el.removeChild(it.el.firstChild);
         it.el.innerHTML = person(it.w, it.h, tone);
-        var dur = Math.min(2.0, Math.max(0.75, it.h / it.speed * 0.8));   // 走得越快步伐越快，但維持自然節奏
+        var dur = Math.min(1.0, Math.max(0.6, it.h / it.speed * 0.35));   // 走得越快步伐越快，但維持自然節奏
         var limbs = it.el.querySelectorAll('.limb');
         for (var k = 0; k < limbs.length; k++) limbs[k].style.animationDuration = dur.toFixed(2) + 's';
         it.x = first ? rand(0, W) : (it.dir > 0 ? -it.w - rand(0, 200) : W + rand(0, 200));
