@@ -1,0 +1,1 @@
+module.exports={theme:{extend:{colors:{cream:'#f8f3ea',ink:'#34251e',brown:'#55392b',orange:'#cf713b',sand:'#e9d9c3'},fontFamily:{sans:['Noto Sans TC','sans-serif'],display:['Noto Serif TC','serif']}}}}
