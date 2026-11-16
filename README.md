@@ -26,3 +26,7 @@ Lucide 0.468.0 已存於 `assets/`，授權見 `assets/lucide-LICENSE`。
 ## App 圖示
 
 `assets/icons/gyoza-original.png` 是使用作圖工具生成的寫實發光鍋貼 PNG 原圖；同目錄包含 180、192、512 像素 PNG，以及保留安全邊界的 maskable 圖示。
+
+## 訂單串接 Google Sheet
+
+結帳可選擇串接 Google Apps Script，將訂單寫入 Google 試算表並寄通知信。程式在 `gas/Code.gs`，設定步驟見 [docs/google-sheets-setup.md](docs/google-sheets-setup.md)。`index.html` 的 `ORDER_ENDPOINT` 留空時維持原本的純示範結帳。
