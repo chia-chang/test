@@ -1,5 +1,5 @@
 const PREFIX = `gyoza-${new URL(self.registration.scope).pathname}-`;
-const CACHE = `${PREFIX}v1`;
+const CACHE = `${PREFIX}v2`;
 const ROOT = self.registration.scope;
 const SHELL = new URL('./index.html', ROOT).href;
 const ASSETS = [
